@@ -1,1 +1,1 @@
-const String baseURL = "https://api.github.com";
+const String baseUrl = "https://api.github.com";
