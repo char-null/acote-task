@@ -21,35 +21,9 @@ class HomeView extends ConsumerWidget {
               itemBuilder: (context, index) {
                 final item = itemLists[index];
                 if (item is UserModel) {
-                  return InkWell(
-                    onTap: () {},
-                    child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.w),
-                      child: Row(
-                        children: [
-                          CircleAvatar(
-                            radius: 30.w,
-                            backgroundImage: NetworkImage(item.avatarUrl),
-                          ),
-                          SizedBox(width: 10.w),
-                          Text(
-                            item.login,
-                            style: TextStyle(
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
+                  return _UserWidget(item: item);
                 } else {
-                  return InkWell(
-                    onTap: () {},
-                    child:
-                        Image.network('https://placehold.it/500x100?text=ad'),
-                  );
+                  return const _AdWidget();
                 }
               },
             );
@@ -64,6 +38,49 @@ class HomeView extends ConsumerWidget {
           },
         ),
       ),
+    );
+  }
+}
+
+class _UserWidget extends StatelessWidget {
+  final UserModel item;
+  const _UserWidget({super.key, required this.item});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {},
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.w),
+        child: Row(
+          children: [
+            CircleAvatar(
+              radius: 30.w,
+              backgroundImage: NetworkImage(item.avatarUrl),
+            ),
+            SizedBox(width: 10.w),
+            Text(
+              item.login,
+              style: TextStyle(
+                fontSize: 18.sp,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _AdWidget extends StatelessWidget {
+  const _AdWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {},
+      child: Image.network('https://placehold.it/500x100?text=ad'),
     );
   }
 }
