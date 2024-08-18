@@ -4,12 +4,43 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class HomeView extends ConsumerWidget {
+class HomeView extends ConsumerStatefulWidget {
   const HomeView({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends ConsumerState<HomeView> {
+  late final ScrollController _scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController()
+      ..addListener(() {
+        if (_scrollController.position.pixels >=
+            _scrollController.position.maxScrollExtent - 200) {
+          final isLoading = ref.read(isLoadingProvider);
+          if (!isLoading) {
+            ref.read(isLoadingProvider.notifier).isLoading();
+            ref.read(homeViewModelProvider.notifier).loadMore();
+          }
+        }
+      });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final asyncUserLists = ref.watch(homeViewModelProvider);
+    ref.watch(isLoadingProvider);
     return SafeArea(
       child: Scaffold(
         body: asyncUserLists.when(
@@ -17,6 +48,7 @@ class HomeView extends ConsumerWidget {
             final itemLists =
                 ref.read(homeViewModelProvider.notifier).insertAds(userLists);
             return ListView.builder(
+              controller: _scrollController,
               itemCount: itemLists.length,
               itemBuilder: (context, index) {
                 final item = itemLists[index];
