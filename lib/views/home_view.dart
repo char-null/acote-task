@@ -1,5 +1,6 @@
 import 'package:acote_task/models/user_model.dart';
 import 'package:acote_task/viewmodels/home_view_model.dart';
+import 'package:acote_task/views/detail_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -33,14 +34,13 @@ class _HomeViewState extends ConsumerState<HomeView> {
   @override
   void dispose() {
     _scrollController.dispose();
-
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final asyncUserLists = ref.watch(homeViewModelProvider);
-    ref.watch(isLoadingProvider);
+    ref.watch(userLoginProvider);
     return SafeArea(
       child: Scaffold(
         body: asyncUserLists.when(
@@ -74,14 +74,18 @@ class _HomeViewState extends ConsumerState<HomeView> {
   }
 }
 
-class _UserWidget extends StatelessWidget {
+class _UserWidget extends ConsumerWidget {
   final UserModel item;
   const _UserWidget({super.key, required this.item});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        ref.read(userLoginProvider.notifier).getUserLogin(item.login);
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const DetailView()));
+      },
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.w),
         child: Row(
