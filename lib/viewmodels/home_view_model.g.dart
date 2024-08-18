@@ -36,5 +36,20 @@ final isLoadingProvider = AutoDisposeNotifierProvider<IsLoading, bool>.internal(
 );
 
 typedef _$IsLoading = AutoDisposeNotifier<bool>;
+String _$userLoginHash() => r'e054cdcbe623dffc9f301f5f79a7e090556ddebc';
+
+/// See also [UserLogin].
+@ProviderFor(UserLogin)
+final userLoginProvider =
+    AutoDisposeNotifierProvider<UserLogin, String>.internal(
+  UserLogin.new,
+  name: r'userLoginProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$userLoginHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef _$UserLogin = AutoDisposeNotifier<String>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
