@@ -56,3 +56,15 @@ class IsLoading extends _$IsLoading {
     state = false;
   }
 }
+
+@riverpod
+class UserLogin extends _$UserLogin {
+  @override
+  String build() {
+    return '';
+  }
+
+  void getUserLogin(String login) {
+    state = login;
+  }
+}
