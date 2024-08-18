@@ -14,7 +14,7 @@ class HomeViewModel extends _$HomeViewModel {
 
   Future<List<UserModel>> getUserLists() async {
     final homeRepository = HomeRepository(acoteApiService: AcoteApiService());
-    return await homeRepository.getUserLists();
+    return await homeRepository.getUserLists(since: 0);
   }
 
   // 기존 userList에 광고 삽입
@@ -27,5 +27,32 @@ class HomeViewModel extends _$HomeViewModel {
       }
     }
     return itemLists;
+  }
+
+  Future<void> loadMore() async {
+    final isLoading = ref.read(isLoadingProvider);
+    if (isLoading) {
+      final homeRepository = HomeRepository(acoteApiService: AcoteApiService());
+      final newUserList =
+          await homeRepository.getUserLists(since: state.requireValue.last.id);
+      state = AsyncValue.data([...state.value!, ...newUserList]);
+    }
+    ref.read(isLoadingProvider.notifier).isCompleted();
+  }
+}
+
+@riverpod
+class IsLoading extends _$IsLoading {
+  @override
+  bool build() {
+    return false;
+  }
+
+  isLoading() {
+    state = true;
+  }
+
+  isCompleted() {
+    state = false;
   }
 }
