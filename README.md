@@ -1,6 +1,7 @@
 # acote_task
 
-A new Flutter project.
+riverpod 상태관리와 mvvm패턴을 적용한 acote task 입니다.
+상세 설명은 노션 확인 부탁드립니다.
 
 ## Getting Started
 
