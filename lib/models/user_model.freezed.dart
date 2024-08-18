@@ -21,6 +21,7 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$UserModel {
   String get login => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'avatar_url')
   String get avatarUrl => throw _privateConstructorUsedError;
 
@@ -35,7 +36,8 @@ abstract class $UserModelCopyWith<$Res> {
   factory $UserModelCopyWith(UserModel value, $Res Function(UserModel) then) =
       _$UserModelCopyWithImpl<$Res, UserModel>;
   @useResult
-  $Res call({String login, @JsonKey(name: 'avatar_url') String avatarUrl});
+  $Res call(
+      {String login, int id, @JsonKey(name: 'avatar_url') String avatarUrl});
 }
 
 /// @nodoc
@@ -52,6 +54,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
   @override
   $Res call({
     Object? login = null,
+    Object? id = null,
     Object? avatarUrl = null,
   }) {
     return _then(_value.copyWith(
@@ -59,6 +62,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.login
           : login // ignore: cast_nullable_to_non_nullable
               as String,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       avatarUrl: null == avatarUrl
           ? _value.avatarUrl
           : avatarUrl // ignore: cast_nullable_to_non_nullable
@@ -75,7 +82,8 @@ abstract class _$$UserModelImplCopyWith<$Res>
       __$$UserModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String login, @JsonKey(name: 'avatar_url') String avatarUrl});
+  $Res call(
+      {String login, int id, @JsonKey(name: 'avatar_url') String avatarUrl});
 }
 
 /// @nodoc
@@ -90,6 +98,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? login = null,
+    Object? id = null,
     Object? avatarUrl = null,
   }) {
     return _then(_$UserModelImpl(
@@ -97,6 +106,10 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value.login
           : login // ignore: cast_nullable_to_non_nullable
               as String,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       avatarUrl: null == avatarUrl
           ? _value.avatarUrl
           : avatarUrl // ignore: cast_nullable_to_non_nullable
@@ -110,6 +123,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
 class _$UserModelImpl extends _UserModel {
   const _$UserModelImpl(
       {required this.login,
+      required this.id,
       @JsonKey(name: 'avatar_url') required this.avatarUrl})
       : super._();
 
@@ -119,12 +133,14 @@ class _$UserModelImpl extends _UserModel {
   @override
   final String login;
   @override
+  final int id;
+  @override
   @JsonKey(name: 'avatar_url')
   final String avatarUrl;
 
   @override
   String toString() {
-    return 'UserModel(login: $login, avatarUrl: $avatarUrl)';
+    return 'UserModel(login: $login, id: $id, avatarUrl: $avatarUrl)';
   }
 
   @override
@@ -133,13 +149,14 @@ class _$UserModelImpl extends _UserModel {
         (other.runtimeType == runtimeType &&
             other is _$UserModelImpl &&
             (identical(other.login, login) || other.login == login) &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.avatarUrl, avatarUrl) ||
                 other.avatarUrl == avatarUrl));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, login, avatarUrl);
+  int get hashCode => Object.hash(runtimeType, login, id, avatarUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -158,6 +175,7 @@ class _$UserModelImpl extends _UserModel {
 abstract class _UserModel extends UserModel {
   const factory _UserModel(
           {required final String login,
+          required final int id,
           @JsonKey(name: 'avatar_url') required final String avatarUrl}) =
       _$UserModelImpl;
   const _UserModel._() : super._();
@@ -167,6 +185,8 @@ abstract class _UserModel extends UserModel {
 
   @override
   String get login;
+  @override
+  int get id;
   @override
   @JsonKey(name: 'avatar_url')
   String get avatarUrl;

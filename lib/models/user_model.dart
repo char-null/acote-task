@@ -9,6 +9,7 @@ class UserModel with _$UserModel {
 
   const factory UserModel({
     required String login,
+    required int id,
     @JsonKey(name: 'avatar_url') required String avatarUrl,
   }) = _UserModel;
 
