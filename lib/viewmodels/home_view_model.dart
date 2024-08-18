@@ -1,7 +1,9 @@
+import 'package:acote_task/constants/constants.dart';
 import 'package:acote_task/models/user_model.dart';
 import 'package:acote_task/repositories/home_repository.dart';
 import 'package:acote_task/services/acote_api_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 part 'home_view_model.g.dart';
 
@@ -38,6 +40,12 @@ class HomeViewModel extends _$HomeViewModel {
       state = AsyncValue.data([...state.value!, ...newUserList]);
     }
     ref.read(isLoadingProvider.notifier).isCompleted();
+  }
+
+  Future<void> clickAd() async {
+    if (!await launchUrl(Uri.parse(adLink))) {
+      throw Exception('Could not launch url');
+    }
   }
 }
 

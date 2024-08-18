@@ -4,6 +4,7 @@ import 'package:acote_task/views/detail_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeView extends ConsumerStatefulWidget {
   const HomeView({super.key});
@@ -109,13 +110,15 @@ class _UserWidget extends ConsumerWidget {
   }
 }
 
-class _AdWidget extends StatelessWidget {
+class _AdWidget extends ConsumerWidget {
   const _AdWidget({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return InkWell(
-      onTap: () {},
+      onTap: () async {
+        ref.read(homeViewModelProvider.notifier).clickAd();
+      },
       child: Image.network('https://placehold.it/500x100?text=ad'),
     );
   }
