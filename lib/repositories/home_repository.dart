@@ -7,9 +7,10 @@ class HomeRepository {
 
   HomeRepository({required this.acoteApiService});
 
-  Future<List<UserModel>> getUserLists() async {
-    final List<UserModel> userLists =
-        await acoteApiService.get<UserModel>('/users', UserModel.fromJson);
+  Future<List<UserModel>> getUserLists(
+      {required int since, int perPage = 30}) async {
+    final List<UserModel> userLists = await acoteApiService.get<UserModel>(
+        '/users?since=$since&per_page=$perPage', UserModel.fromJson);
     debugPrint('################ user : $userLists');
     return userLists;
   }
